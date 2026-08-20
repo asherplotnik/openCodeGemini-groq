@@ -1,0 +1,14 @@
+{
+  "name": "opencode-groq-harness",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "doctor": "node scripts/doctor.mjs",
+    "ping:groq": "node scripts/ping-groq.mjs",
+    "opencode": "opencode"
+  },
+  "devDependencies": {
+    "opencode-ai": "^1.18.19"
+  }
+}

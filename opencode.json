@@ -1,0 +1,53 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "mastra-gemini/gemini-3.5-flash",
+  "provider": {
+    "groq": {
+      "npm": "@ai-sdk/groq",
+      "name": "Groq",
+      "options": {
+        "apiKey": "{env:GROQ_API_KEY}"
+      },
+      "models": {
+        "openai/gpt-oss-120b": {
+          "name": "OpenAI GPT-OSS 120B",
+          "limit": {
+            "context": 131072,
+            "output": 65536
+          }
+        }
+      }
+    },
+    "idb-gemini": {
+      "npm": "@ai-sdk/google",
+      "name": "IDB Gemini Connector",
+      "options": {
+        "baseURL": "{env:IDB_GEMINI_BASE_URL}",
+        "apiKey": "{env:IDB_GEMINI_API_KEY}",
+        "headers": {
+          "Authorization": "{env:IDB_GEMINI_AUTHORIZATION}",
+          "X-IBM-Client-Id": "{env:IDB_GEMINI_CLIENT_ID}",
+          "X-IBM-Client-Secret": "{env:IDB_GEMINI_CLIENT_SECRET}"
+        }
+      },
+      "models": {
+        "gemini-2.5-flash": {
+          "name": "Gemini 2.5 Flash via IDB Connector"
+        }
+      }
+    },
+    "mastra-gemini": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Gemini AI Connector",
+      "options": {
+        "baseURL": "http://127.0.0.1:{env:GEMINI_PROXY_PORT}",
+        "apiKey": "{env:GEMINI_API_KEY}"
+      },
+      "models": {
+        "gemini-3.5-flash": {
+          "name": "Gemini 3.5 Flash via AI Connector"
+        }
+      }
+    }
+  }
+}
