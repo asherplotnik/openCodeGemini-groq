@@ -46,21 +46,6 @@ To use Groq explicitly instead:
 opencode --model groq/openai/gpt-oss-120b
 ```
 
-## Optional IDB Gemini Connector
-
-Add the following values to `.env` to make the Gemini connector available from any folder:
-
-```text
-# Development environment:
-IDB_GEMINI_BASE_URL=https://aicp-dev.aicp.opsh-apps.linux.dev.local/api/connectors/6a044e215fb865473746eeb1/v1/projects/me-sb-dgcp-dpoc-pocyosh-pr/locations/europe-west1/publishers/google
-# Work environment fallback:
-# IDB_GEMINI_BASE_URL=https://api-internal-test-discountbank.dev.local/internal/test/aicpapi/69e0811dd239ce9c3f51b7c9/v1/projects/me-sb-dgcp-dpoc-pocyosh-pr/locations/europe-west1/publishers/google
-IDB_GEMINI_API_KEY=
-IDB_GEMINI_AUTHORIZATION=Bearer <short-lived-JWT>
-IDB_GEMINI_CLIENT_ID=
-IDB_GEMINI_CLIENT_SECRET=
-```
-
 Then select it explicitly:
 
 ```bash
