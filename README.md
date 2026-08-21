@@ -21,18 +21,6 @@ Portable Git Bash setup for Gemini 3.5 Flash through the configured connector an
 
 The installer installs OpenCode globally, then adds an `opencode` function to `~/.bashrc`. The function loads the keys only while OpenCode runs, starts a loopback-only Gemini compatibility bridge, and supplies this folder's `opencode.json` as the active config.
 
-## Gemini Connector
-
-The default model is `mastra-gemini/gemini-3.5-flash`. Configure the following values in `.env`:
-
-```text
-GEMINI_API_KEY=
-GEMINI_MODEL=gemini-3.5-flash
-GEMINI_BASE_URL=https://ai-connector-platform-630744526491.me-west1.run.app/api/connectors/<connector-id>
-GEMINI_VERTEX_PROJECT=me-sb-dgcp-dpoc-pocyosh-pr
-GEMINI_VERTEX_LOCATION=europe-west1
-GEMINI_PROXY_PORT=8787
-```
 
 The bridge is local-only and translates OpenCode's chat and tool calls to the connector's Vertex-shaped API. From any Git Bash folder, run:
 
