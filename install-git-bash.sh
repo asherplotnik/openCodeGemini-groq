@@ -24,15 +24,16 @@ if [[ ! -r "$task_config_path" ]]; then
   exit 1
 fi
 
-if ! command -v npm >/dev/null 2>&1; then
-  printf 'npm is required to install OpenCode globally.\n' >&2
-  exit 1
-fi
-
-if command -v opencode >/dev/null 2>&1; then
-  printf 'OpenCode is already installed globally.\n'
-else
+task_local_opencode="$task_harness_dir/node_modules/opencode-ai/bin/opencode.exe"
+if [[ -x "$task_local_opencode" ]]; then
+  printf 'Using bundled OpenCode executable: %s\n' "$task_local_opencode"
+elif command -v opencode >/dev/null 2>&1; then
+  printf 'Using globally installed OpenCode.\n'
+elif command -v npm >/dev/null 2>&1; then
   npm install --global opencode-ai
+else
+  printf 'Bundled OpenCode was not found and npm is unavailable. Include node_modules in the harness artifact.\n' >&2
+  exit 1
 fi
 
 touch "$task_bashrc_path"
@@ -54,6 +55,7 @@ function opencode() (
   local task_harness_dir=$task_harness_dir_quoted
   local task_config_path=$task_config_path_quoted
   local task_secret_path="\$task_harness_dir/.env"
+  local task_local_opencode="\$task_harness_dir/node_modules/opencode-ai/bin/opencode.exe"
   local task_env_line
   local task_env_name
   local task_env_value
@@ -111,7 +113,14 @@ function opencode() (
   fi
 
   export OPENCODE_CONFIG="\$task_config_path"
-  command opencode "\$@"
+  if [[ -x "\$task_local_opencode" ]]; then
+    "\$task_local_opencode" "\$@"
+  elif type -P opencode >/dev/null 2>&1; then
+    command opencode "\$@"
+  else
+    printf 'OpenCode executable not found. Re-run the installer with bundled node_modules or npm available.\n' >&2
+    return 1
+  fi
   local task_status=\$?
   if (( task_proxy_started )); then
     kill "\$task_proxy_pid" 2>/dev/null || true

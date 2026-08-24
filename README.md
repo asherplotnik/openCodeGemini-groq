@@ -19,7 +19,13 @@ Portable Git Bash setup for Gemini 3.5 Flash through the configured connector an
 
 4. Open a new Git Bash window and run `opencode` from any directory.
 
-The installer installs OpenCode globally, then adds an `opencode` function to `~/.bashrc`. The function loads the keys only while OpenCode runs, starts a loopback-only Gemini compatibility bridge, and supplies this folder's `opencode.json` as the active config.
+The installer adds an `opencode` function to `~/.bashrc`. When `node_modules` is included, the function runs the bundled OpenCode executable and does not need npm or a global install. It loads keys only while OpenCode runs, starts a loopback-only Gemini compatibility bridge, and supplies this folder's `opencode.json` as the active config.
+
+## Offline / Artifactory Distribution
+
+For a network-restricted Windows environment, distribute this folder as a ZIP that includes `node_modules`. The target machine needs Windows x64, Node.js, and Git Bash; it does not need npm or internet access. Add the approved connector values to `.env`, run `bash ./install-git-bash.sh` once, then use `opencode` from any Git Bash folder.
+
+`node_modules` is intentionally excluded from Git, so a clone of this repository alone is not the offline artifact.
 
 
 The bridge is local-only and translates OpenCode's chat and tool calls to the connector's Vertex-shaped API. From any Git Bash folder, run:
